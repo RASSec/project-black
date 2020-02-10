@@ -1,6 +1,6 @@
 FROM ubuntu:16.04
 
-LABEL Name=dirsearch_black Version=1.0.0
+LABEL Name=masscan_black Version=1.0.0
 
 RUN apt-get update
 RUN apt-get install -y software-properties-common
@@ -17,7 +17,8 @@ RUN apt-get install -y \
     libxslt1-dev \
     zlib1g-dev \
     python3-pip \
-    python3-pip
+    masscan \
+    sudo
 
 RUN python3.6 -m pip install --upgrade pip
 
@@ -26,4 +27,4 @@ ADD . /app
 
 RUN python3.6 -m pip install -r requirements.txt
 
-CMD ["python3.6", "spawn_worker.py", "dirsearch", "--config", "/app/config/config_docker.yml"]
+CMD ["sudo", "python3.6", "spawn_worker.py", "masscan", "--config", "/app/config/config_docker.yml"]
